@@ -31,8 +31,4 @@ public class AssociationService{
     public List<Association> findByUser(User user){
         return associationRepository.findByUserAndRoles(user, user.getRoles());
     }
-
-    public List<Association> getAssociationsByUser( User user ){
-        return associationRepository.getAssociationsByUserAndRoles( user, user.getRoles( ) );
-    }
 }
