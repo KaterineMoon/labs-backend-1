@@ -2,13 +2,17 @@ package co.edu.unal.software_engineering.labs.controller;
 
 import co.edu.unal.software_engineering.labs.model.Association;
 import co.edu.unal.software_engineering.labs.model.Course;
+<<<<<<< HEAD
 import co.edu.unal.software_engineering.labs.model.Period;
 import co.edu.unal.software_engineering.labs.model.Role;
+=======
+>>>>>>> upstream/master
 import co.edu.unal.software_engineering.labs.model.User;
 import co.edu.unal.software_engineering.labs.pojo.CoursePOJO;
 import co.edu.unal.software_engineering.labs.pojo.EnrolledCoursePOJO;
 import co.edu.unal.software_engineering.labs.service.AssociationService;
 import co.edu.unal.software_engineering.labs.service.CourseService;
+<<<<<<< HEAD
 import co.edu.unal.software_engineering.labs.service.PeriodService;
 import co.edu.unal.software_engineering.labs.service.RoleService;
 import co.edu.unal.software_engineering.labs.service.UserService;
@@ -16,6 +20,9 @@ import co.edu.unal.software_engineering.labs.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 
+=======
+import co.edu.unal.software_engineering.labs.service.UserService;
+>>>>>>> upstream/master
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,12 +44,22 @@ public class CourseController{
     private final RoleService roleService;
     private final PeriodService periodService;
 
+<<<<<<< HEAD
     public CourseController( CourseService courseService, AssociationService associationService, UserService userService, RoleService roleService, PeriodService periodService){
         this.courseService = courseService;
         this.associationService = associationService;
         this.userService = userService;
         this.roleService = roleService;
         this.periodService = periodService;
+=======
+    private final AssociationService associationService;
+    private final UserService userService;
+
+    public CourseController( CourseService courseService, AssociationService associationService, UserService userService ){
+        this.courseService = courseService;
+        this.associationService = associationService;
+        this.userService = userService;
+>>>>>>> upstream/master
     }
 
     @PostMapping( value = {"/profesor/crear-curso"} )
@@ -60,6 +77,7 @@ public class CourseController{
         return new ResponseEntity<>( HttpStatus.CREATED );
     }
 
+<<<<<<< HEAD
     @GetMapping(value = {"/mis-cursos"})
     public List<EnrolledCoursePOJO> getCoursesByUser(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -71,4 +89,18 @@ public class CourseController{
         }
         return enrolledCourses;
     }
+=======
+    @GetMapping( "/mis-cursos" )
+    public List<EnrolledCoursePOJO> getCoursesByUser( ){
+        String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName( );
+        User user = userService.findByUsername( username );
+        List<Association> associations = associationService.getAssociationsByUser( user );
+        List<EnrolledCoursePOJO> enrolledCourses = new ArrayList<>( );
+        for( Association association : associations ){
+            enrolledCourses.add( new EnrolledCoursePOJO( association ) );
+        }
+        return enrolledCourses;
+    }
+
+>>>>>>> upstream/master
 }
